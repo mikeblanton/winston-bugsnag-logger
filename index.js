@@ -44,10 +44,7 @@ class BugsnagLogger extends Transport {
   }
 
   log(info, callback) {
-    console.log('info', info);
-    console.log('meta', info.meta);
-    console.log('callback', callback);
-    console.log('stack', info.stack);
+    console.log('Type of info', typeof info);
 
       if (this.silent) return callback(null, true);
       if (!(info.level in this._levelsMap)) return callback(null, true);
