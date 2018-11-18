@@ -38,6 +38,9 @@ class BugsnagLogger extends Transport {
       this.bugsnag = bugsnag;
       this.bugsnag.register(options.apiKey, options.config);
     }
+
+    this._levelsMap = options.levelsMap;
+    this.silent = options.silent;
   }
 
   log(level, msg, meta, fn) {
