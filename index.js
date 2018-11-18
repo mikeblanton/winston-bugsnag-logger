@@ -44,8 +44,6 @@ class BugsnagLogger extends Transport {
   }
 
   log(info, callback) {
-    console.log('info is error', _.isError(info));
-
     if (this.silent) return callback(null, true);
     if (!(info.level in this._levelsMap)) return callback(null, true);
     const meta = info.meta || {};
