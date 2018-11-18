@@ -44,18 +44,18 @@ class BugsnagLogger extends Transport {
   }
 
   log(info, callback) {
-    console.log('Type of info', typeof info);
+    console.log('info is error', _.isError(info));
 
-      if (this.silent) return callback(null, true);
-      if (!(info.level in this._levelsMap)) return callback(null, true);
-      const meta = info.meta || {};
-      meta.severity = this._levelsMap[info.level];
-      if (_.isError(info)) {
-        meta.stacktrace = info.stack;
-      }
-      this.bugsnag.notify(new Error(info.message), meta, function() {
-        callback(null, true);
-      });
+    if (this.silent) return callback(null, true);
+    if (!(info.level in this._levelsMap)) return callback(null, true);
+    const meta = info.meta || {};
+    meta.severity = this._levelsMap[info.level];
+    if (_.isError(info)) {
+      meta.stacktrace = info.stack;
+    }
+    this.bugsnag.notify(info.message, meta, function() {
+      callback(null, true);
+    });
   }
 
   // log(level, msg, meta, fn) {
