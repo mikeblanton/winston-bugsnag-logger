@@ -54,13 +54,8 @@ class BugsnagLogger extends Transport {
     if (_.isError(info)) {
       meta.stacktrace = info.stack;
     }
-    try {
-      await this.bugsnag.notify(info.message, meta);
-      console.log('bugsnag log success');
-      callback(null, true);
-    } catch (error) {
-      console.log('bugsnag log error', error);
-    }
+    this.bugsnag.notify(info.message, meta);
+    callback(null, true);
   }
 };
 
