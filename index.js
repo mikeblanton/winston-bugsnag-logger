@@ -1,4 +1,3 @@
-
 const _ = require('lodash');
 const bugsnag = require('bugsnag');
 const winston = require('winston');
@@ -10,6 +9,7 @@ class BugsnagLogger extends Transport {
   get name() {
     return 'bugsnag';
   }
+
   constructor(options = {}) {
     //
     // Inherit from `winston-transport`.
@@ -71,4 +71,14 @@ class BugsnagLogger extends Transport {
     });
 
   }
+};
+
+/
+// Define a getter so that `winston.transports.Bugsnag`
+// is available and thus backwards compatible.
+//
+winston.transports.BugsnagLogger = BugsnagLogger;
+
+module.exports = {
+  BugsnagLogger
 };
