@@ -1,10 +1,10 @@
 const _ = require('lodash');
 const bugsnag = require('bugsnag');
 const winston = require('winston');
-const LegacyTransport = require('winston-transport/legacy');
+const Transport = require('winston-transport');
 const util = require('util');
 
-class BugsnagLogger extends LegacyTransport {
+class BugsnagLogger extends Transport {
 
   get name() {
     return 'bugsnag';
@@ -43,37 +43,41 @@ class BugsnagLogger extends LegacyTransport {
     this.silent = options.silent;
   }
 
-  log(level, msg, meta, fn) {
-
-    if (this.silent) return fn(null, true);
-    if (!(level in this._levelsMap)) return fn(null, true);
-
-    meta = meta || {};
-    meta.severity = this._levelsMap[level];
-    meta.metaData = meta.metaData || {};
-
-    //
-    // TODO: this is currently unknown and poorly documented by Bugsnag
-    // (e.g. bugsnag-js sends a different payload than bugsnag-node does)
-    // <insert facepalm here>
-    //
-
-    if (_.isError(msg) && !_.isObject(meta.metaData.err)) {
-      meta.metaData.err = { stack: msg.stack, message: msg.message };
-      msg = msg.message;
-    }
-
-    if (_.isError(meta) && !_.isObject(meta.metaData.err)) {
-      meta.metaData.err = { stack: meta.stack, message: meta.message };
-      if (!_.isString(msg))
-        msg = meta.message;
-    }
-
-    this.bugsnag.notify(msg, meta, function() {
-      fn(null, true);
-    });
-
+  log(info, callback) {
+    console.log('info', info);
   }
+
+  // log(level, msg, meta, fn) {
+  //
+  //   if (this.silent) return fn(null, true);
+  //   if (!(level in this._levelsMap)) return fn(null, true);
+  //
+  //   meta = meta || {};
+  //   meta.severity = this._levelsMap[level];
+  //   meta.metaData = meta.metaData || {};
+  //
+  //   //
+  //   // TODO: this is currently unknown and poorly documented by Bugsnag
+  //   // (e.g. bugsnag-js sends a different payload than bugsnag-node does)
+  //   // <insert facepalm here>
+  //   //
+  //
+  //   if (_.isError(msg) && !_.isObject(meta.metaData.err)) {
+  //     meta.metaData.err = { stack: msg.stack, message: msg.message };
+  //     msg = msg.message;
+  //   }
+  //
+  //   if (_.isError(meta) && !_.isObject(meta.metaData.err)) {
+  //     meta.metaData.err = { stack: meta.stack, message: meta.message };
+  //     if (!_.isString(msg))
+  //       msg = meta.message;
+  //   }
+  //
+  //   this.bugsnag.notify(msg, meta, function() {
+  //     fn(null, true);
+  //   });
+  //
+  // }
 };
 
 // Define a getter so that `winston.transports.Bugsnag`
