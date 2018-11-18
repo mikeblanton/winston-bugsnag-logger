@@ -51,8 +51,9 @@ class BugsnagLogger extends Transport {
 
       if (this.silent) return callback(null, true);
       if (!(info.level in this._levelsMap)) return callback(null, true);
-      info.meta.severity = this._levelsMap[info.level];
-      this.bugsnag.notify(new Error(info.message), info.meta, function() {
+      const meta = info.meta || {};
+      meta.severity = this._levelsMap[info.level];
+      this.bugsnag.notify(new Error(info.message), meta, function() {
         callback(null, true);
       });
   }
