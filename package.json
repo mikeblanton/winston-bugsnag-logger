@@ -7,11 +7,12 @@
     "url": "https://github.com/niftylettuce/winston-bugsnag-logger/issues"
   },
   "dependencies": {
-    "bugsnag": "^1.12.0",
-    "lodash": "^4.17.4"
+    "bugsnag": "^2.4.3",
+    "lodash": "^4.17.11",
+    "winston-transport": "^4.2.0"
   },
   "devDependencies": {
-    "winston": "^2.3.1"
+    "winston": "^3.1.0"
   },
   "engines": {
     "node": ">= 4.8.4"

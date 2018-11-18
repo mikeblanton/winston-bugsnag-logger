@@ -2,6 +2,7 @@
 const _ = require('lodash');
 const bugsnag = require('bugsnag');
 const winston = require('winston');
+const Transport = require('winston-transport');
 const util = require('util');
 
 function BugsnagLogger(options) {
@@ -23,7 +24,7 @@ function BugsnagLogger(options) {
     }
   });
 
-  winston.Transport.call(this, _.omit(options, [
+  Transport.call(this, _.omit(options, [
     'apiKey',
     'config',
     'bugsnag',
@@ -42,8 +43,8 @@ function BugsnagLogger(options) {
 
 };
 
-// Inherit from `winston.Transport`
-util.inherits(BugsnagLogger, winston.Transport);
+// Inherit from `Transport`
+util.inherits(BugsnagLogger, Transport);
 
 // Define a getter so that `winston.transports.BugsnagLogger`
 // is available and thus backwards compatible
