@@ -45,7 +45,7 @@ class BugsnagLogger extends Transport {
     this.silent = options.silent;
   }
 
-  log(info, callback) {
+  async log(info, callback) {
     console.log('bugsnag log', info);
     if (this.silent) return callback(null, true);
     if (!(info.level in this._levelsMap)) return callback(null, true);
@@ -54,11 +54,8 @@ class BugsnagLogger extends Transport {
     if (_.isError(info)) {
       meta.stacktrace = info.stack;
     }
-    this.bugsnag.notify(info.message, meta, function(err, response) {
-      console.log('bugsnag notify error', err);
-      console.log('bugsnag notify response', response);
-      callback(null, true);
-    });
+    await this.bugsnag.notify(info.message, meta);
+    callback(null, true);
   }
 };
 
