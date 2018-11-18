@@ -1,10 +1,10 @@
 const _ = require('lodash');
 const bugsnag = require('bugsnag');
 const winston = require('winston');
-const Transport = require('winston-transport');
+const LegacyTransport = require('winston-transport/legacy');
 const util = require('util');
 
-class BugsnagLogger extends Transport {
+class BugsnagLogger extends LegacyTransport {
 
   get name() {
     return 'bugsnag';
