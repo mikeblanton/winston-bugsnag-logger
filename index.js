@@ -73,7 +73,6 @@ class BugsnagLogger extends Transport {
   }
 };
 
-/
 // Define a getter so that `winston.transports.Bugsnag`
 // is available and thus backwards compatible.
 //
