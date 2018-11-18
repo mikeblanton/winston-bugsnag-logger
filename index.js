@@ -55,6 +55,8 @@ class BugsnagLogger extends Transport {
       meta.stacktrace = info.stack;
     }
     this.bugsnag.notify(info.message, meta, function(err, response) {
+      console.log('bugsnag notify error', err);
+      console.log('bugsnag notify response', response);
       callback(null, true);
     });
   }
