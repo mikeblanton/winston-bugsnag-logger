@@ -45,6 +45,7 @@ class BugsnagLogger extends Transport {
 
   log(info, callback) {
     console.log('info', info);
+    console.log('meta', info['Symbol(splat)']);
     console.log('callback', callback);
   }
 
