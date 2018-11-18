@@ -45,6 +45,7 @@ class BugsnagLogger extends Transport {
 
   log(info, callback) {
     console.log('info', info);
+    console.log('callback', callback);
   }
 
   // log(level, msg, meta, fn) {
