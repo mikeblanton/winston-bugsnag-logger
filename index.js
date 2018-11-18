@@ -47,6 +47,12 @@ class BugsnagLogger extends Transport {
     console.log('info', info);
     console.log('meta', info.meta);
     console.log('callback', callback);
+
+      if (this.silent) return callback(null, true);
+      if (!(info.level in this._levelsMap)) return callback(null, true);
+      this.bugsnag.notify(new Error(info.message), info.meta, function() {
+        callback(null, true);
+      });
   }
 
   // log(level, msg, meta, fn) {
