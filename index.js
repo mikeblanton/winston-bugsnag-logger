@@ -32,8 +32,6 @@ class BugsnagLogger extends Transport {
       }
     });
 
-    console.log('options', options);
-
     if (options.bugsnag) {
       this.bugsnag = options.bugsnag;
     } else {
@@ -46,7 +44,6 @@ class BugsnagLogger extends Transport {
   }
 
   async log(info, callback) {
-    console.log('bugsnag log', info);
     if (this.silent) return callback(null, true);
     if (!(info.level in this._levelsMap)) return callback(null, true);
     const meta = info.meta || {};
